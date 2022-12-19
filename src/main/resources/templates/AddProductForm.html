@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>I am here</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body>
+<!--==============-->
+<div class="container-fluid">
+    <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Menu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#submenu1" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-speedometer2"></i> <span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-table"></i> <span class="ms-1 d-none d-sm-inline">Orders</span></a>
+                    </li>
+                    <li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Bootstrap</span></a>
+                    </li>
+                    <li>
+                        <a href="#submenu3" data-bs-toggle="collapse" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-grid"></i> <span class="ms-1 d-none d-sm-inline">Products</span> </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Customers</span> </a>
+                    </li>
+                </ul>
+                <hr>
+                <div class="dropdown pb-4">
+                    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="https://github.com/mdo.png" alt="hugenerd" width="30" height="30" class="rounded-circle">
+                        <span class="d-none d-sm-inline mx-1">loser</span>
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col py-3">
+<!--==============-->
+<h1 class="text-center"> Add product</h1>
+
+<div class="container mt-3">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form th:action="@{handle-product}" method="post">
+
+                <div class="form-group">
+                    <label for="ref">Product reference</label>
+                    <input type="text" class="form-control" id="ref"
+                           name="ref" aria-placeholder="Enter the product reference">
+                </div>
+                <div class="form-group">
+                    <label for="nom">Product name</label>
+                    <input type="text" class="form-control" id="nom" aria-describedby="emailHelp"
+                    name="name" aria-placeholder="Enter the product name">
+                </div>
+                <div class="form-group">
+                    <label for="category">Product Category</label>
+                    <input type="text" class="form-control" id="category"
+                           name="category" aria-placeholder="Enter the product category">
+                </div>
+                <div class="form-group">
+                    <label for="descreption">Product Description</label>
+                    <textarea class="form-control" name="descreption" id="descreption"
+                    rows="5" placeholder="Enter the product description">
+                    </textarea>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Product Category</label>
+                    <input type="text" class="form-control" id="quantity"
+                           name="quantity" aria-placeholder="Enter the product quantity">
+                </div>
+                <div class="container text-center mt-5">
+                     <a th:href="@{products}"
+                        class="btn btn-secondary">Back</a>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </div>
+
+
+            </form>
+
+        </div>
+
+    </div>
+</div>
+
+<!--            ====-->
+        </div></div></div>
+
+</body>
+</html>

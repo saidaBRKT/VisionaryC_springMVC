@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="ISO-8859-1">
+    <title>I am here</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/5.0.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container-fluid">
+    <div class="save">
+        <a th:href="@{Client}" class="btn btn-success text-white ms-0">Back</a>
+        <div class="d-flex justify-content-center text-success">
+            <h1>Panier :</h1>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="list-product d-flex flex-column w-50"></div>
+    </div>
+</div>
+
+<script>
+    printCart();
+
+    function printCart(){
+        if (localStorage.getItem("cartProduct") != null){
+            let list_product = document.querySelector(".list-product");
+            let cartProduct = JSON.parse(localStorage.getItem("cartProduct"));
+            list_product.innerHTML = `
+                <div class="text-center mt-5">
+                    <button class="btn btn-secondary" onclick="save()">Save changes</button>
+                    <button class="btn btn-success m-4" onclick="confirmCommand()">Validate  Command</button>
+                </div>
+            `;
+            cartProduct.products.forEach((product, index)=>{
+                list_product.innerHTML += `
+                         <div class="card m-3 d-flex flex-row w-100 justify-content-center p-5">
+                            <p class="w-50">${product.ref}</p>
+                            <input type="number" id="${product.ref}" value="${product.quantity}" class="form-control w-25">
+                        </div>
+                `;
+            })
+
+        }
+    }
+
+    function save(){
+        let cartProduct = JSON.parse(localStorage.getItem("cartProduct"));
+        let cartProductUpdate = {products:[]};
+        cartProduct.products.forEach((p, index)=>{
+            let id = p.ref;
+            let input = document.getElementById(id).value;
+            cartProductUpdate.products.push({ref:p.ref, quantity: input});
+        })
+        localStorage.setItem("cartProduct", JSON.stringify(cartProductUpdate));
+
+    }
+
+    function confirmCommand(){
+        let cartProduct = JSON.parse(localStorage.getItem("cartProduct"));
+        let command = {
+            commandeItems: [],
+            client: {
+                email: "client1@gmail.com"
+            }
+        }
+        cartProduct.products.forEach((p, index)=>{
+            let item = {
+                    product: {
+                        ref: p.ref
+                    },
+                    quantity: p.quantity
+                }
+            command.commandeItems.push(item);
+        })
+
+        var myHeaders = new Headers();
+
+        myHeaders.append("Content-Type", "application/json");
+
+
+        var raw = JSON.stringify(command);
+        console.log(command)
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
+
+        fetch("http://localhost:8083/api/command/", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                console.log(result)
+                if (result != null){
+                    localStorage.removeItem("cartProduct")
+                    location.reload();
+                }
+            })
+            .catch(error => console.log('error', error));
+    }
+</script>
+</body>
+</html>
